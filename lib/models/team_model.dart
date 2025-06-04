@@ -10,6 +10,8 @@ class TeamModel extends HiveObject {
 
   @HiveField(1)
   List<PokemonModel> members;
-
   TeamModel({required this.name, required this.members});
+
+  @override
+  String toString() => name; // Membantu DropdownButton menampilkan nama tim
 }

@@ -10,4 +10,24 @@ class ApiService {
     }
     return null;
   }
+
+  Future<List<Map<String, dynamic>>> fetchPokemonList(
+      {int limit = 20, int offset = 0}) async {
+    final response = await http.get(Uri.parse(
+        'https://pokeapi.co/api/v2/pokemon?limit=$limit&offset=$offset'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      final results = data['results'] as List;
+
+      List<Map<String, dynamic>> pokemonDetails = [];
+      for (var pokemon in results) {
+        final details = await fetchPokemon(pokemon['name']);
+        if (details != null) {
+          pokemonDetails.add(details);
+        }
+      }
+      return pokemonDetails;
+    }
+    return [];
+  }
 }

@@ -28,6 +28,7 @@ class _DetailPageState extends State<DetailPage> {
       abilities: (widget.data['abilities'] as List)
           .map((ability) => ability['ability']['name'].toString())
           .toList(),
+      baseExperience: widget.data['base_experience'] ?? 0,
     );
     _checkFavorite();
   }

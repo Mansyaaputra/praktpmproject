@@ -21,13 +21,14 @@ class PokemonModelAdapter extends TypeAdapter<PokemonModel> {
       name: fields[1] as String,
       imageUrl: fields[2] as String,
       abilities: (fields[3] as List).cast<String>(),
+      baseExperience: fields[4] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, PokemonModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class PokemonModelAdapter extends TypeAdapter<PokemonModel> {
       ..writeByte(2)
       ..write(obj.imageUrl)
       ..writeByte(3)
-      ..write(obj.abilities);
+      ..write(obj.abilities)
+      ..writeByte(4)
+      ..write(obj.baseExperience);
   }
 
   @override

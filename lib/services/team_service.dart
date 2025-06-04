@@ -23,4 +23,10 @@ class TeamService {
       await team.save();
     }
   }
+
+  static Future<void> updateTeam(TeamModel team) async {
+    final box = await Hive.openBox<TeamModel>(boxName);
+    await box.put(team.name, team);
+    await team.save(); // Ensure changes are saved to Hive
+  }
 }

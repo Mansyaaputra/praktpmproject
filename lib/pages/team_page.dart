@@ -24,12 +24,28 @@ class TeamPage extends StatelessWidget {
               itemCount: teams.length,
               itemBuilder: (context, index) {
                 final team = teams[index];
+                final totalBaseExp = team.members.fold<int>(
+                    0, (sum, pokemon) => sum + pokemon.baseExperience);
+
                 return ExpansionTile(
-                  title: Text(team.name),
+                  title: Row(
+                    children: [
+                      Expanded(child: Text(team.name)),
+                      Text(
+                        'Total Base Exp: $totalBaseExp',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
                   children: team.members
                       .map((member) => ListTile(
                             leading: Image.network(member.imageUrl, width: 50),
                             title: Text(member.name),
+                            subtitle:
+                                Text('Base Exp: ${member.baseExperience}'),
                           ))
                       .toList(),
                 );
